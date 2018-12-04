@@ -22,6 +22,16 @@ CREATE TABLE IF NOT EXISTS Office (
 )
 COMMENT ON TABLE Office IS 'Таблица офисов';
 
+CREATE TABLE ID NOT EXISTS 0ffice_Employee (
+    office_id       BIGINT    COMMENT 'Уникальный идентификатор офиса',
+    employee_id     BIGINT    COMMENT 'Уникальный идентификатор работника',
+
+    PRIMARY KEY (office_id, employee_id),
+
+    FOREIGN KEY (office_id) REFERENCES Office(id),
+    FOREIGN KEY (employee_id) REFERENCES Employee(id)
+)
+
 CREATE TABLE IF NOT EXISTS Employee (
     id              BIGINT      COMMENT 'Уникальный идентификатор'                            PRIMARY KEY AUTO_INCREMENT,
     first_name      VARCHAR(50) COMMENT 'Имя пользователя'                                    NOT NULL,
@@ -29,18 +39,18 @@ CREATE TABLE IF NOT EXISTS Employee (
     last_name       VARCHAR(50) COMMENT 'Второе имя/Отчество пользователя',
     position        VARCHAR(50) COMMENT 'Должность пользователя'                              NOT NULL,
     phone           VARCHAR(20) COMMENT 'Телефон пользователя'                                UNIQUE,
-    doc_id          BIGINT      COMMENT 'Идентификатор, связываюший работника с информацией о его документах' UNIQUE ,
-    FOREIGN KEY (doc_id) REFERENCES Document(id),
     citizenship_id  BIGINT      COMMENT 'Идентификатор, связывающий работника с его страной'  UNIQUE,
     FOREIGN KEY (citizenship_id) REFERENCES Country(id),
     office_id       BIGINT      COMMENT 'Идентификатор связывающий рабоника с офисом',
     FOREIGN KEY (office_id) REFERENCES Office(id),
     is_identified   BIGINT      COMMENT ''
 )
-COMMENT ON TABLE User IS 'Таблица работников';
+COMMENT ON TABLE Employee IS 'Таблица работников';
 
 CREATE TABLE IF NOT EXISTS Doc_employee (
     id          BIGINT    COMMENT 'Уникальный идентификатор'                              PRIMARY KEY AUTO_UNCREMENT,
+    empl_id     BIGINT    COMMENT 'Связь документа с работником'                          NOT NULL,
+    FOREIGN KEY (empl_id)   REFERENCES Employee(id),
     doc_number  BIGINT    COMMENT 'Номер документа работника'                             NOT NULL UNIQUE,
     doc_date    DATE      COMMENT 'Дата выдачи документа работника'                       NOT NULL,
     doc_type_id BIGINT    COMMENT 'Идентификатор, связывающий документ с типом документа' NOT NULL,
@@ -88,6 +98,10 @@ CREATE INDEX IX_Doc_Type_Code ON Doc_type (code);
 
 CREATE INDEX UX_Country_Name ON Country (name);
 CREATE INDEX UX_Country_Code ON Country (code);
+
+CREATE INDEX IX_Office_Employee_Id ON Office_Employeee (employee_id);
+CREATE INDEX IX_Employee_Office_Id ON Office_Employeee (office_id);
+
 
 
 
