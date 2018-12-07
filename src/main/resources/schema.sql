@@ -6,18 +6,19 @@ CREATE TABLE IF NOT EXISTS Organization (
     kpp         BIGINT      COMMENT ''                          NOT NULL  UNIQUE ,
     address     VARCHAR(50) COMMENT 'Адрес организации'         NOT NULL,
     phone       VARCHAR(50) COMMENT 'Телефон организации'       UNIQUE ,
-    is_active   BOOLEAN     COMMENT ''                          DEFAULT = FALSE
+    is_active   BOOLEAN     COMMENT ''
 
 );
 COMMENT ON TABLE Organization IS 'Таблица организаций';
 
 CREATE TABLE IF NOT EXISTS Office (
     id        BIGINT      COMMENT 'Уникальный идентификатор'        PRIMARY KEY AUTO_INCREMENT,
-    org_id    BIGINT      COMMENT 'Идентификатор связанный с идентификатором (id) в таблице организаций' FOREIGN KEY REFERENCES Organization (id),
+    org_id    BIGINT      COMMENT 'Идентификатор связанный с идентификатором (id) в таблице организаций' NOT NULL,
     name      VARCHAR(50) COMMENT 'Название офиса'                  NOT NULL  UNIQUE ,
     address   VARCHAR(50) COMMENT 'Адрес офиса'                     NOT NULL,
     phone     VARCHAR(50) COMMENT 'Телефонный номер офиса'          UNIQUE ,
-    is_active BOOLEAN     COMMENT ''                                DEFAULT = FALSE
+    FOREIGN KEY (org_id) REFERENCES Organization (id),
+    is_active BOOLEAN     COMMENT ''
 
 );
 COMMENT ON TABLE Office IS 'Таблица офисов';
@@ -41,12 +42,12 @@ CREATE TABLE IF NOT EXISTS Employee (
     phone           VARCHAR(20) COMMENT 'Телефон пользователя'                                UNIQUE,
     citizenship_id  BIGINT      COMMENT 'Идентификатор, связывающий работника с его страной'  UNIQUE,
     FOREIGN KEY (citizenship_id) REFERENCES Country(id),
-    is_identified   BIGINT      COMMENT ''
+    is_identified   BOOLEAN      COMMENT ''
 );
 COMMENT ON TABLE Employee IS 'Таблица работников';
 
 CREATE TABLE IF NOT EXISTS Doc_employee (
-    id          BIGINT    COMMENT 'Уникальный идентификатор'                              PRIMARY KEY AUTO_UNCREMENT,
+    id          BIGINT    COMMENT 'Уникальный идентификатор'                              PRIMARY KEY AUTO_INCREMENT,
     empl_id     BIGINT    COMMENT 'Связь документа с работником'                          NOT NULL,
     FOREIGN KEY (empl_id)   REFERENCES Employee(id),
     doc_number  BIGINT    COMMENT 'Номер документа работника'                             NOT NULL UNIQUE,
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS Doc_type (
 COMMENT ON TABLE Doc_type IS 'Таблица типов документов';
 
 CREATE TABLE IF NOT EXISTS Country (
-    id        INTEGER      COMMENT 'Уникальный идентификатор' PRIMARY KEY AUOTO_INCREMENT,
+    id        INTEGER      COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     name      VARCHAR(50)  COMMENT 'Название страны'          UNIQUE  NOT NULL,
     code      VARCHAR(50)  COMMENT 'Код страны'               UNIQUE  NOT NULL
 );
@@ -74,16 +75,19 @@ CREATE INDEX UX_Organization_Full_Name ON Organization (fullname);
 CREATE INDEX UX_Organization_INN  ON Organization (inn);
 CREATE INDEX UX_Organization_KPP  ON Organization (kpp);
 CREATE INDEX IX_Organization_Is_Active  ON Organization (is_active);
+ALTER TABLE Organization ALTER COLUMN is_active SET DEFAULT FALSE;
 
 CREATE INDEX UX_Office_Name ON Office (name);
 CREATE INDEX IX_Office_Is_Active ON Office (is_active);
 CREATE INDEX IX_Office_Org_Id ON Office (org_id);
+ALTER TABLE Office ALTER COLUMN is_active SET DEFAULT FALSE;
 
 CREATE INDEX UX_Employee_First_Name ON Employee (first_name);
 CREATE INDEX IX_Employee_Second_Name ON Employee (second_name);
 CREATE INDEX IX_Employee_Last_Name ON Employee (last_name);
 CREATE INDEX IX_Employee_Position ON Employee (position);
 CREATE INDEX IX_Employee_Citizenship_Id ON Employee (citizenship_id);
+ALTER TABLE Employee ALTER COLUMN is_identified SET DEFAULT FALSE;
 
 
 CREATE INDEX UX_Doc_Employee_Doc_Number ON Doc_employee (doc_number);
@@ -98,6 +102,8 @@ CREATE INDEX UX_Country_Code ON Country (code);
 
 CREATE INDEX IX_Office_Employee_Id ON Office_Employee (employee_id);
 CREATE INDEX IX_Employee_Office_Id ON Office_Employee (office_id);
+
+
 
 
 
