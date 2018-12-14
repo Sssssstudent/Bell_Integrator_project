@@ -4,13 +4,14 @@ public class ResponseView {
 
     public ResponseView(){}
 
-    public Boolean succeess = true;
+    public Boolean succeess;
 
     public Boolean getSucceess() {
         return succeess;
     }
 
-    public void setSucceess(Boolean succeess) {
+    public ResponseView setSucceess(Boolean succeess) {
         this.succeess = succeess;
+        return this;
     }
 }

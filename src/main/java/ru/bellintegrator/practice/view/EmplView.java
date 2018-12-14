@@ -23,21 +23,6 @@ public class EmplView {
         this.isIdentefied =isIdentefied;
     }
 
-    public EmplView(Long id ){
-        this.id = id;
-        this.firstName = "Чаплин";
-        this.secondName = "Гротеск";
-        this.lastName = "Павлович";
-        this.position = "TeamLead";
-        this.phone = "8-666-666-90-90";
-        this.docCode = 21L;
-        this.docName = "Паспорт РФ";
-        this.docNumber = 1111111111L;
-        this.docDate = "1994-09-01";
-        this.citizenshipCode = 61L;
-        this.isIdentefied = true;
-    }
-
     public Long id;
 
     @Size(max = 50)

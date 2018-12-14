@@ -28,17 +28,6 @@ public class OrgView {
         isActive = true;
     }
 
-    public OrgView(Long id){
-        this.id = id;
-        name = "ЛондонПариж";
-        fullName = "ЛондонПариж";
-        inn = 1212313131L;
-        kpp = 9090909090L;
-        address = "г.Москва, ул.Островского 11Б";
-        phone = "+7-932-890-09-09";
-        isActive = true;
-    }
-
     public Long id;
 
     @Size(max=50)

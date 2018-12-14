@@ -9,14 +9,6 @@ public class OfficeView {
 
     }
 
-    public OfficeView(Long id){
-        this.id = id;
-        name = "Gogo";
-        address = "ул.Красного Знамени 50";
-        phone = "8-980-980-33-33";
-        isActive = true;
-    }
-
     public OfficeView(Long id, String name, String address, String phone, Boolean isActive){
         this.id = id;
         this.name = name;

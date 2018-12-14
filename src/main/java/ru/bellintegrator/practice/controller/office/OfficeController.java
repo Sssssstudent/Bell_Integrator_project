@@ -30,7 +30,6 @@ public class OfficeController {
             @ApiResponse(code = 500, message = "Failure")})
     @PostMapping("/save")
     public ResponseView addOffice(@RequestBody OfficeView office){
-        officeService.add(office);
-        return new ResponseView();
+        return officeService.add(office);
     }
 }

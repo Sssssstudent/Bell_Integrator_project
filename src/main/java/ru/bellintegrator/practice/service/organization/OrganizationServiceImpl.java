@@ -14,5 +14,17 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public OrgView getOrg(Long id){return new OrgView(id);}
+    public OrgView getOrg(Long id){
+        OrgView view = new OrgView();
+        view.setId(id);
+        view.setName("ЛондонПариж");
+        view.setFullName("ЛондонПариж");
+        view.setInn(1212313131L);
+        view.setKpp(9090909090L);
+        view.setAddress("г.Москва, ул.Островского 11Б");
+        view.setPhone("+7-932-890-09-09");
+        view.setActive(true);
+        return view;
+    }
+
 }

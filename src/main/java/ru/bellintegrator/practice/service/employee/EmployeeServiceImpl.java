@@ -10,6 +10,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmplView getEmpl(Long id){return new EmplView(id);}
+    public EmplView getEmpl(Long id){
+        EmplView view = new EmplView();
+        view.setId(id);
+        view.setFirstName("Чаплин");
+        view.setSecondName("Гротеск");
+        view.setLastName("Павлович");
+        view.setPosition("TeamLead");
+        view.setPhone("8-666-666-90-90");
+        view.setDocCode(21L);
+        view.setDocName("Паспорт РФ");
+        view.setDocNumber(1111111111L);
+        view.setDocDate("1994-09-01");
+        view.setCitizenshipCode(61L);
+        view.setIdentefied(true);
+        return view;
+    }
 
 }
