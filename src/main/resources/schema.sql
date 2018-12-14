@@ -1,27 +1,50 @@
 CREATE TABLE IF NOT EXISTS Organization (
-    id          BIGINT      COMMENT 'Уникальный идентификатор'  PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(50) COMMENT 'Имя организации'           NOT NULL,
-    fullname    VARCHAR(50) COMMENT 'Полное имя организации'    NOT NULL  UNIQUE ,
-    inn         BIGINT      COMMENT ''                          NOT NULL  UNIQUE ,
-    kpp         BIGINT      COMMENT ''                          NOT NULL  UNIQUE ,
-    address     VARCHAR(50) COMMENT 'Адрес организации'         NOT NULL,
-    phone       VARCHAR(50) COMMENT 'Телефон организации'       UNIQUE ,
-    is_active   BOOLEAN     COMMENT ''
+    id          BIGINT        PRIMARY KEY AUTO_INCREMENT ,
+    name        VARCHAR(50)            NOT NULL COMMENT 'Имя организации',
+    fullname    VARCHAR(50)     NOT NULL  COMMENT 'Полное имя организации' ,
+    inn         BIGINT                                NOT NULL   ,
+    kpp         BIGINT                               NOT NULL   ,
+    address     VARCHAR(50)          NOT NULL COMMENT 'Адрес организации',
+    phone       VARCHAR(50)       COMMENT 'Телефон организации' ,
+    is_active   BOOLEAN     ,
+    version     INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
 
 );
 COMMENT ON TABLE Organization IS 'Таблица организаций';
 
 CREATE TABLE IF NOT EXISTS Office (
-    id        BIGINT      COMMENT 'Уникальный идентификатор'        PRIMARY KEY AUTO_INCREMENT,
-    org_id    BIGINT      COMMENT 'Идентификатор связанный с идентификатором (id) в таблице организаций' NOT NULL,
-    name      VARCHAR(50) COMMENT 'Название офиса'                  NOT NULL  UNIQUE ,
-    address   VARCHAR(50) COMMENT 'Адрес офиса'                     NOT NULL,
-    phone     VARCHAR(50) COMMENT 'Телефонный номер офиса'          UNIQUE ,
+    id        BIGINT              PRIMARY KEY AUTO_INCREMENT ,
+    org_id    BIGINT       NOT NULL COMMENT 'Идентификатор связанный с идентификатором (id) в таблице организаций',
+    name      VARCHAR(50)                  NOT NULL   COMMENT 'Название офиса' ,
+    address   VARCHAR(50)                      NOT NULL COMMENT 'Адрес офиса',
+    phone     VARCHAR(50)         COMMENT 'Телефонный номер офиса',
     FOREIGN KEY (org_id) REFERENCES Organization (id),
-    is_active BOOLEAN     COMMENT ''
+    is_active BOOLEAN     ,
+    version     INTEGER     NOT NULL COMMENT 'Служебное поле Hibernate'
 
 );
 COMMENT ON TABLE Office IS 'Таблица офисов';
+
+CREATE TABLE IF NOT EXISTS Country (
+    id        INTEGER       PRIMARY KEY AUTO_INCREMENT ,
+    name      VARCHAR(50)              NOT NULL COMMENT 'Название страны',
+    code      VARCHAR(50)                NOT NULL COMMENT 'Код страны'
+);
+COMMENT ON TABLE Country IS 'Таблица стран';
+
+CREATE TABLE IF NOT EXISTS Employee (
+    id              BIGINT                                  PRIMARY KEY AUTO_INCREMENT ,
+    first_name      VARCHAR(50)                                     NOT NULL COMMENT 'Имя пользователя',
+    second_name     VARCHAR(50) COMMENT 'Фамилия пользователя',
+    last_name       VARCHAR(50) COMMENT 'Второе имя/Отчество пользователя',
+    position        VARCHAR(50)                               NOT NULL COMMENT 'Должность пользователя',
+    phone           VARCHAR(20)                                 COMMENT 'Телефон пользователя',
+    citizenship_id  BIGINT         COMMENT 'Идентификатор, связывающий работника с его страной',
+    FOREIGN KEY (citizenship_id) REFERENCES Country(id),
+    is_identified   BOOLEAN      COMMENT '',
+    version         INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
+);
+COMMENT ON TABLE Employee IS 'Таблица работников';
 
 CREATE TABLE IF NOT EXISTS Office_Employee (
     office_id       BIGINT    COMMENT 'Уникальный идентификатор офиса',
@@ -33,43 +56,23 @@ CREATE TABLE IF NOT EXISTS Office_Employee (
     FOREIGN KEY (employee_id) REFERENCES Employee(id)
 );
 
-CREATE TABLE IF NOT EXISTS Employee (
-    id              BIGINT      COMMENT 'Уникальный идентификатор'                            PRIMARY KEY AUTO_INCREMENT,
-    first_name      VARCHAR(50) COMMENT 'Имя пользователя'                                    NOT NULL,
-    second_name     VARCHAR(50) COMMENT 'Фамилия пользователя',
-    last_name       VARCHAR(50) COMMENT 'Второе имя/Отчество пользователя',
-    position        VARCHAR(50) COMMENT 'Должность пользователя'                              NOT NULL,
-    phone           VARCHAR(20) COMMENT 'Телефон пользователя'                                UNIQUE,
-    citizenship_id  BIGINT      COMMENT 'Идентификатор, связывающий работника с его страной'  UNIQUE,
-    FOREIGN KEY (citizenship_id) REFERENCES Country(id),
-    is_identified   BOOLEAN      COMMENT ''
-);
-COMMENT ON TABLE Employee IS 'Таблица работников';
-
-CREATE TABLE IF NOT EXISTS Doc_employee (
-    id          BIGINT    COMMENT 'Уникальный идентификатор'                              PRIMARY KEY AUTO_INCREMENT,
-    empl_id     BIGINT    COMMENT 'Связь документа с работником'                          NOT NULL,
-    FOREIGN KEY (empl_id)   REFERENCES Employee(id),
-    doc_number  BIGINT    COMMENT 'Номер документа работника'                             NOT NULL UNIQUE,
-    doc_date    DATE      COMMENT 'Дата выдачи документа работника'                       NOT NULL,
-    type_id     BIGINT    COMMENT 'Идентификатор, связывающий документ с типом документа' NOT NULL,
-    FOREIGN KEY (type_id) REFERENCES Doc_type(id)
-);
-COMMENT ON TABLE Doc_employee IS 'Таблица документов';
-
 CREATE TABLE IF NOT EXISTS Doc_type (
-    id        BIGINT      COMMENT 'Уникальный идентификатор'  PRIMARY KEY AUTO_INCREMENT,
-    type      VARCHAR(50) COMMENT 'Тип документа'             NOT NULL,
-    code      VARCHAR(2)  COMMENT 'Код документа'             NOT NULL
+    id        BIGINT        PRIMARY KEY AUTO_INCREMENT,
+    type      VARCHAR(50)              NOT NULL COMMENT 'Тип документа',
+    code      VARCHAR(2)               NOT NULL COMMENT 'Код документа'
 );
 COMMENT ON TABLE Doc_type IS 'Таблица типов документов';
 
-CREATE TABLE IF NOT EXISTS Country (
-    id        INTEGER      COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-    name      VARCHAR(50)  COMMENT 'Название страны'          UNIQUE  NOT NULL,
-    code      VARCHAR(50)  COMMENT 'Код страны'               UNIQUE  NOT NULL
+CREATE TABLE IF NOT EXISTS Doc_employee (
+    id          BIGINT                                  PRIMARY KEY AUTO_INCREMENT ,
+    empl_id     BIGINT                              NOT NULL COMMENT 'Связь документа с работником',
+    FOREIGN KEY (empl_id)   REFERENCES Employee(id),
+    doc_number  BIGINT                                 NOT NULL  COMMENT 'Номер документа работника',
+    doc_date    VARCHAR(50)                            NOT NULL  COMMENT 'Дата выдачи документа работника',
+    type_id     BIGINT     NOT NULL COMMENT 'Идентификатор, связывающий документ с типом документа',
+    FOREIGN KEY (type_id) REFERENCES Doc_type(id)
 );
-COMMENT ON TABLE Country IS 'Таблица стран';
+COMMENT ON TABLE Doc_employee IS 'Таблица документов';
 
 CREATE INDEX UX_Organization_Full_Name ON Organization (fullname);
 CREATE INDEX UX_Organization_INN  ON Organization (inn);
