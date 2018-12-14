@@ -9,9 +9,13 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import ru.bellintegrator.practice.view.OfficeView;
+import ru.bellintegrator.practice.view.ResponseView;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -33,13 +37,11 @@ public class OfficeControllerTest {
         OfficeView sampleOffice = new OfficeView(1L);
 
         HttpEntity<OfficeView> entity = new HttpEntity<>(sampleOffice, headers);
-        ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+        ResponseEntity<ResponseView> result = restTemplate.exchange(uri, HttpMethod.POST, entity, ResponseView.class);
+
+        ResponseView view = result.getBody();
 
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertTrue(result.getBody().contains("result"));
-        Assert.assertTrue(result.getBody().contains("success"));
-
-
-
+        assertThat(view.getSucceess(), is(true));
     }
 }

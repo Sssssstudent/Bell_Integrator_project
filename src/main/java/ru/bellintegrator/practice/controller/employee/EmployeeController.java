@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.service.employee.EmployeeService;
+import ru.bellintegrator.practice.view.EmplView;
 
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -27,8 +28,8 @@ public class EmployeeController {
             @ApiResponse(code = 200, message = "Success", response = String.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @PostMapping("/{id}")
-    public String office(@PathVariable("id") Long id) {
-        return "{data:" + emplService.getEmpl(id).toString() + "}";
+    @GetMapping("/{id}")
+    public EmplView getEmployeeById(@PathVariable("id") Long id) {
+        return emplService.getEmpl(id);
     }
 }

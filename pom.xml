@@ -82,6 +82,14 @@
         <artifactId>junit</artifactId>
     </dependency>
 
+
+    <!--использование lambok для генерации геттеров/сеттеров -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.18</version>
+    </dependency>
+
     <!-- модульные и интеграционные тесты -->
     <dependency>
         <groupId>org.springframework.boot</groupId>

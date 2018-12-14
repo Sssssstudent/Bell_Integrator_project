@@ -29,7 +29,7 @@ public class OfficeController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @PostMapping("/save")
-    public ResponseView office(@RequestBody OfficeView office){
+    public ResponseView addOffice(@RequestBody OfficeView office){
         officeService.add(office);
         return new ResponseView();
     }

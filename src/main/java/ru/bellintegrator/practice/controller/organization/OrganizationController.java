@@ -28,7 +28,7 @@ public class OrganizationController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @GetMapping("/{id}")
-    public String orgById(@PathVariable("id") Long orgId){
-        return "{data:" + orgService.getOrg(orgId).toString() + "}";
+    public OrgView orgById(@PathVariable("id") Long orgId){
+        return orgService.getOrg(orgId);
     }
 }
