@@ -8,7 +8,7 @@ public interface OrganizationDao {
     /**Получить все организации
      *@return
      */
-    List<Organization> all();
+//    List<Organization> all();
 
 
     /**Получить организацию по id
@@ -20,10 +20,10 @@ public interface OrganizationDao {
     /**Сохранить организацию в БД
      *
      */
-    void save(Organization organization);
+//    void save(Organization organization);
 
     /**Обновить данные об организации
      *
      */
-    void update(Organization organization);
+//    void update(Organization organization);
 }

@@ -34,7 +34,7 @@ public class OfficeControllerTest {
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        OfficeView sampleOffice = new OfficeView(1L);
+        OfficeView sampleOffice = new OfficeView(1L, "kok", "KOKKOK", "9090909", true);
 
         HttpEntity<OfficeView> entity = new HttpEntity<>(sampleOffice, headers);
         ResponseEntity<ResponseView> result = restTemplate.exchange(uri, HttpMethod.POST, entity, ResponseView.class);

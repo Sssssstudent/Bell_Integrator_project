@@ -1,6 +1,8 @@
 package ru.bellintegrator.practice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Organization")
 public class Organization {
@@ -10,32 +12,65 @@ public class Organization {
     @Column(name = "id")
     private Long id;
 
+    /**
+     * служебное поле hibernate
+     */
     @Version
     private Integer version;
 
-
-
+    /**
+     * сокращенное имя организации
+     */
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
+    /**
+     *полное имя организации
+     */
     @Column(name = "fullname", length = 50, nullable = false, unique = true)
     private String fullName;
 
+    /**
+     *инн
+     */
     @Column( nullable = false, unique = true)
     private Long inn;
 
+    /**
+     *кпп
+     */
     @Column( nullable = false, unique = true)
     private Long kpp;
 
+    /**
+     *адресс
+     */
     @Column( length = 50, nullable = false)
     private String address;
 
+    /**
+     *телефон
+     */
     @Column( length = 50, unique = true)
     private String phone;
 
+    /**
+     *
+     */
     @Column( name =  "is_active" )
     private Boolean isActive;
 
+    /**
+     *список офисов,принадлежащих данной организации
+     */
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "org_id")
+    public Set<Office> offices;
+
+
+    /**
+     *конструкторы
+     */
     public Organization(){
 
     }
@@ -62,6 +97,25 @@ public class Organization {
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
+    }
+
+
+    /**
+     *геттеры и сеттеры
+     */
+    public Set<Office> getOffices(){
+        if (offices == null) {
+            offices = new HashSet<>();
+        }
+        return offices;
+    }
+
+    public void addOffice(Office office){
+        getOffices().add(office);
+    }
+
+    public void removeOffice(Office office){
+        getOffices().remove(office);
     }
 
     public Long getId(){return id;}
@@ -93,13 +147,5 @@ public class Organization {
     public Boolean getIsActive(){return isActive;}
 
     public void setIsActive(Boolean isActive){this.isActive = isActive;}
-
-
-
-
-
-
-
-
 
 }

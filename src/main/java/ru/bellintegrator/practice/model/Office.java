@@ -1,5 +1,8 @@
 package ru.bellintegrator.practice.model;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Офис
@@ -13,15 +16,21 @@ public class Office {
     private Long id;
 
     /**
+     * Служебное поле Hibernate
+     */
+    @Version
+    private Integer version;
+
+    /**
      * Наименование офиса
      */
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", length = 50)
     private String name;
 
     /**
      * Адрес офиса
      */
-    @Column(name = "address", length = 50, nullable = false)
+    @Column(name = "address", length = 50)
     private String address;
 
     /**
@@ -37,11 +46,30 @@ public class Office {
     private Boolean isActive;
 
     /**
-     * id организации владельца
+     * id организации этого офиса
      */
     @Column(name = "org_id", nullable = false)
     private Long orgId;
 
+    /**
+     *список работников в офисе
+     */
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+    @JoinTable(
+            name = "Office_Employee",
+            joinColumns = @JoinColumn(name = "office_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+    private Set<Employee> employees;
+
+    /**
+     *конструкторы
+     */
     public Office() {
 
     }
@@ -65,6 +93,9 @@ public class Office {
         this.orgId = orgId;
     }
 
+    /**
+     *геттеры и сеттеры
+     */
     public Long getId() {
         return id;
     }
@@ -112,5 +143,41 @@ public class Office {
     public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
+
+    public Set<Employee> getEmployees(){
+        if (employees == null){
+            employees = new HashSet<>();
+        }
+        return employees;
+    }
+
+    public void addEmployee(Employee employee){
+        getEmployees().add(employee);
+        employee.getOffices().add(this);
+    }
+
+    public void removeEmployee(Employee employee){
+        getEmployees().remove(employee);
+        employee.getOffices().remove(this);
+    }
+
+
+
+
+
+    /**
+     * разкоммитеть, если нужна двунаправленная связь
+     * @return
+     */
+/*
+    @ManyToOne(fetch = FetchType.LAZY, mappedBy="offices")
+    private Organization organization;
+
+    public Organization getOrganization(){return organization;}
+
+    public void setOrganization(){this.organization = organization;}
+    */
+
+
 
 }
