@@ -27,8 +27,9 @@ COMMENT ON TABLE Office IS 'Таблица офисов';
 
 CREATE TABLE IF NOT EXISTS Country (
     id        INTEGER       PRIMARY KEY AUTO_INCREMENT ,
-    name      VARCHAR(50)              NOT NULL COMMENT 'Название страны',
-    code      VARCHAR(50)                NOT NULL COMMENT 'Код страны'
+    name      VARCHAR(50)   NOT NULL COMMENT 'Название страны',
+    code      VARCHAR(50)   NOT NULL COMMENT 'Код страны',
+    version   INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
 );
 COMMENT ON TABLE Country IS 'Таблица стран';
 
@@ -58,8 +59,9 @@ CREATE TABLE IF NOT EXISTS Office_Employee (
 
 CREATE TABLE IF NOT EXISTS Doc_type (
     id        BIGINT        PRIMARY KEY AUTO_INCREMENT,
-    type      VARCHAR(50)              NOT NULL COMMENT 'Тип документа',
-    code      VARCHAR(2)               NOT NULL COMMENT 'Код документа'
+    type      VARCHAR(50)   NOT NULL COMMENT 'Тип документа',
+    code      VARCHAR(2)    NOT NULL COMMENT 'Код документа',
+    version   INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
 );
 COMMENT ON TABLE Doc_type IS 'Таблица типов документов';
 
@@ -70,7 +72,8 @@ CREATE TABLE IF NOT EXISTS Doc_employee (
     doc_number  BIGINT                                 NOT NULL  COMMENT 'Номер документа работника',
     doc_date    VARCHAR(50)                            NOT NULL  COMMENT 'Дата выдачи документа работника',
     type_id     BIGINT     NOT NULL COMMENT 'Идентификатор, связывающий документ с типом документа',
-    FOREIGN KEY (type_id) REFERENCES Doc_type(id)
+    FOREIGN KEY (type_id) REFERENCES Doc_type(id),
+    version     INTEGER    NOT NULL COMMENT 'Служебное поле Hibernate'
 );
 COMMENT ON TABLE Doc_employee IS 'Таблица документов';
 

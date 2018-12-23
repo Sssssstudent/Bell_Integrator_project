@@ -8,15 +8,27 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * служебное поле hibernate
+     */
     @Version
     private Integer version;
 
+    /**
+     *название страны
+     */
     @Column(length = 50,nullable = false)
     private String name;
 
+    /**
+     *код страны
+     */
     @Column(length = 50, nullable = false)
     private String code;
 
+    /**
+     *конструкторы
+     */
     public Country(){
 
     }
@@ -26,6 +38,9 @@ public class Country {
         this.code = code;
     }
 
+    /**
+     *геттеры и сеттеры
+     */
     public Long getId() {
         return id;
     }

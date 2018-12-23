@@ -6,4 +6,6 @@ public class Data {
     public Data(String data) {
         this.data = data;
     }
+
+
 }

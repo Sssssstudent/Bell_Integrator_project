@@ -70,7 +70,12 @@ public class Employee {
     private Set<Office> offices;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn()
+    @JoinColumn(name = "citizenship_id")
+    private Country country;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "empl_id")
+    private DocEmployee docEmployee;
 
     /**
      *конструкторы
@@ -101,10 +106,6 @@ public class Employee {
      */
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getVersion() {
@@ -188,6 +189,19 @@ public class Employee {
         office.getEmployees().remove(this);
     }
 
+    public Country getCountry() {
+        return country;
+    }
 
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
+    public DocEmployee getDocType() {
+        return docEmployee;
+    }
+
+    public void setDocType(DocEmployee docEmployee) {
+        this.docEmployee = docEmployee;
+    }
 }

@@ -9,7 +9,6 @@ public class Organization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     /**
@@ -27,19 +26,19 @@ public class Organization {
     /**
      *полное имя организации
      */
-    @Column(name = "fullname", length = 50, nullable = false, unique = true)
+    @Column(name = "fullname", length = 50, nullable = false)
     private String fullName;
 
     /**
      *инн
      */
-    @Column( nullable = false, unique = true)
+    @Column( nullable = false)
     private Long inn;
 
     /**
      *кпп
      */
-    @Column( nullable = false, unique = true)
+    @Column( nullable = false)
     private Long kpp;
 
     /**
@@ -51,7 +50,7 @@ public class Organization {
     /**
      *телефон
      */
-    @Column( length = 50, unique = true)
+    @Column( length = 50)
     private String phone;
 
     /**
