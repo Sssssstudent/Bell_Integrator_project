@@ -9,5 +9,5 @@ public interface CountryDao {
      * список стран
      * @return
      */
-    List<Country> countries();
+    List<Country> all();
 }

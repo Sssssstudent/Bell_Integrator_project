@@ -6,6 +6,7 @@ import ru.bellintegrator.practice.model.DocType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -18,9 +19,9 @@ public class DocTypeDaoImpl implements DocTypeDao {
     }
 
     @Override
-    public Set<DocType> docTypes() {
+    public List<DocType> all() {
         TypedQuery<DocType> query = em.createQuery("SELECT d FROM DocType d", DocType.class);
-        return (Set<DocType>) query.getResultList();
+        return  query.getResultList();
     }
 }
 

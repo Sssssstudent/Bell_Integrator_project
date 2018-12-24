@@ -15,6 +15,29 @@ import javax.validation.constraints.Size;
 */
 public class OrgView {
 
+    public Long id;
+
+    @Size(max = 50)
+    @NotEmpty
+    private String name;
+
+    @Size(max = 50)
+    @NotEmpty
+    private String fullName;
+
+    @NotNull
+    private Long inn;
+
+    @NotNull
+    private Long kpp;
+
+    @Size(max = 50)
+    @NotNull
+    private String address;
+
+    @Size(max = 50)
+    private String phone;
+
     public OrgView(){}
 
     public OrgView(Long id, String name, String fullName, Long inn, Long kpp, String address, String phone){
@@ -28,37 +51,8 @@ public class OrgView {
         isActive = true;
     }
 
-    public Long id;
 
-    @Size(max=50)
-    @NotEmpty
-
-    public String name;
-
-    @Size(max = 50)
-    @NotEmpty
-
-    public String fullName;
-
-    @NotNull
-
-    public Long inn;
-
-    @NotNull
-
-    public Long kpp;
-
-    @Size(max = 50)
-    @NotNull
-
-    public String address;
-
-    @Size(max = 50)
-
-    public String phone;
-
-
-   public Boolean isActive;
+   private Boolean isActive;
 
     public Long getId() {
         return id;

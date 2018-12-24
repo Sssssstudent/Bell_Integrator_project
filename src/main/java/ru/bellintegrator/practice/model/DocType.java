@@ -3,39 +3,55 @@ package ru.bellintegrator.practice.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Doc_type")
 public class DocType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * служебное поле hibernate
+     */
     @Version
     private Integer version;
 
-    @Column(length = 50, nullable = false)
-    private String type;
+    /**
+     *тип документа
+     */
+    @Column(name = "type",length = 50, nullable = false)
+    private String name;
 
-    @Column(length = 2, nullable = false)
+    /**
+     *код документа
+     */
+    @Column(length = 10, nullable = false)
     private String code;
 
+    /**
+     *конструкторы
+     */
     public DocType(){
 
     }
 
-    public DocType(String type, String code) {
-        this.type = type;
+    public DocType(String name, String code) {
+        this.name = name;
         this.code = code;
     }
 
+    /**
+     *геттеры и сеттеры
+     */
     public Long getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {
