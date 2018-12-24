@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Organization (
     id          BIGINT        PRIMARY KEY AUTO_INCREMENT ,
     name        VARCHAR(50)            NOT NULL COMMENT 'Имя организации',
-    fullname    VARCHAR(50)     NOT NULL  COMMENT 'Полное имя организации' ,
+    full_name    VARCHAR(50)     NOT NULL  COMMENT 'Полное имя организации' ,
     inn         BIGINT                                NOT NULL   ,
     kpp         BIGINT                               NOT NULL   ,
     address     VARCHAR(50)          NOT NULL COMMENT 'Адрес организации',
@@ -67,8 +67,8 @@ COMMENT ON TABLE Doc_type IS 'Таблица типов документов';
 
 CREATE TABLE IF NOT EXISTS Doc_employee (
     id          BIGINT                                  PRIMARY KEY AUTO_INCREMENT ,
-    empl_id     BIGINT                              NOT NULL COMMENT 'Связь документа с работником',
-    FOREIGN KEY (empl_id)   REFERENCES Employee(id),
+    emp_id     BIGINT                              NOT NULL COMMENT 'Связь документа с работником',
+    FOREIGN KEY (emp_id)   REFERENCES Employee(id),
     doc_number  BIGINT                                 NOT NULL  COMMENT 'Номер документа работника',
     doc_date    VARCHAR(50)                            NOT NULL  COMMENT 'Дата выдачи документа работника',
     type_id     BIGINT     NOT NULL COMMENT 'Идентификатор, связывающий документ с типом документа',
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS Doc_employee (
 );
 COMMENT ON TABLE Doc_employee IS 'Таблица документов';
 
-CREATE INDEX UX_Organization_Full_Name ON Organization (fullname);
+CREATE INDEX UX_Organization_Full_Name ON Organization (full_name);
 CREATE INDEX UX_Organization_INN  ON Organization (inn);
 CREATE INDEX UX_Organization_KPP  ON Organization (kpp);
 CREATE INDEX IX_Organization_Is_Active  ON Organization (is_active);
@@ -95,7 +95,7 @@ CREATE INDEX IX_Employee_Position ON Employee (position);
 CREATE INDEX IX_Employee_Citizenship_Id ON Employee (citizenship_id);
 ALTER TABLE Employee ALTER COLUMN is_identified SET DEFAULT FALSE;
 
-
+CREATE INDEX UX_Doc_Employee_Emp_Id ON Doc_employee (emp_id);
 CREATE INDEX UX_Doc_Employee_Doc_Number ON Doc_employee (doc_number);
 CREATE INDEX IX_Doc_Employee_Doc_Date ON Doc_employee (doc_date);
 CREATE INDEX IX_Doc_Employee_Type_Id ON Doc_employee (type_id);

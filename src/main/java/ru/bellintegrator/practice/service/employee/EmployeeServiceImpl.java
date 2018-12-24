@@ -1,30 +1,29 @@
 package ru.bellintegrator.practice.service.employee;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.practice.dao.employee.EmployeeDao;
+import ru.bellintegrator.practice.model.Employee;
+import ru.bellintegrator.practice.model.mapper.MapperFacade;
 import ru.bellintegrator.practice.view.EmplView;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    //private final EmployeeDao dao;
+    private final EmployeeDao dao;
+    private final MapperFacade mapperFacade;
+
+    @Autowired
+    public EmployeeServiceImpl(EmployeeDao dao, MapperFacade mapperFacade) {
+        this.dao = dao;
+        this.mapperFacade = mapperFacade;
+    }
 
     @Override
-    @Transactional
-    public EmplView getEmpl(Long id){
-        EmplView view = new EmplView();
-        view.setId(id);
-        view.setFirstName("Чаплин");
-        view.setSecondName("Гротеск");
-        view.setLastName("Павлович");
-        view.setPosition("TeamLead");
-        view.setPhone("8-666-666-90-90");
-        view.setDocCode(21L);
-        view.setDocName("Паспорт РФ");
-        view.setDocNumber(1111111111L);
-        view.setDocDate("1994-09-01");
-        view.setCitizenshipCode(61L);
-        view.setIdentefied(true);
-        return view;
+    @Transactional(readOnly = true)
+    public EmplView getEmployee(Long id){
+        Employee employee = dao.getById(id);
+        return mapperFacade.map(employee, EmplView.class);
     }
 
 }

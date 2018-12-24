@@ -15,7 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Api(value = "EmployeeContoller", description = "Управление информацией об работниках")
 @RestController
-@RequestMapping(value = "/user", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/employee", produces = APPLICATION_JSON_VALUE)
 public class EmployeeController {
 
     private final EmployeeService emplService;
@@ -30,6 +30,6 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Failure")})
     @GetMapping("/{id}")
     public EmplView getEmployeeById(@PathVariable("id") Long id) {
-        return emplService.getEmpl(id);
+        return emplService.getEmployee(id);
     }
 }

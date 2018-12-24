@@ -58,7 +58,7 @@ public class OrgView {
     public String phone;
 
 
-    public Boolean isActive;
+   public Boolean isActive;
 
     public Long getId() {
         return id;
@@ -116,12 +116,12 @@ public class OrgView {
         this.phone = phone;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+    public void setIsActive(Boolean active) {
+        this.isActive = active;
     }
 
     @Override

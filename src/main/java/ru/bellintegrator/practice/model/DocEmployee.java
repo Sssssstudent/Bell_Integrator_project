@@ -14,21 +14,19 @@ public class DocEmployee {
     @Version
     private Integer version;
 
-    @Column(name = "empl_id", nullable = false)
-    private Long emplId;
-
-    @Column(name = "doc_namber", nullable = false)
+    @Column(name = "doc_number", nullable = false)
     private Long docNumber;
 
     @Column(name = "doc_date", length = 50, nullable = false)
     private String docDate;
 
-    @Column(name = "type_id", nullable = false)
-    private Long typeId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")
     private DocType docType;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
 
 
     public DocEmployee(){
@@ -42,14 +40,6 @@ public class DocEmployee {
 
     public Long getId() {
         return id;
-    }
-
-    public Long getEmplId() {
-        return emplId;
-    }
-
-    public void setEmplId(Long emplId) {
-        this.emplId = emplId;
     }
 
     public Long getDocNumber() {
@@ -68,20 +58,20 @@ public class DocEmployee {
         this.docDate = docDate;
     }
 
-    public Long getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
-    }
-
     public DocType getDocType() {
         return docType;
     }
 
     public void setDocType(DocType docType) {
         this.docType = docType;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
 

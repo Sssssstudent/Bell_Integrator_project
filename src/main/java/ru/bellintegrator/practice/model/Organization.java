@@ -26,7 +26,7 @@ public class Organization {
     /**
      *полное имя организации
      */
-    @Column(name = "fullname", length = 50, nullable = false)
+    @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
     /**
@@ -73,7 +73,7 @@ public class Organization {
     public Organization(){
 
     }
-
+/*
     public Organization(String name, String fullName, Long inn, Long kpp,
                         String address, String phone, Boolean isActive){
         this.name = name;
@@ -96,7 +96,7 @@ public class Organization {
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
-    }
+    }*/
 
 
     /**

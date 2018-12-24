@@ -13,7 +13,9 @@ public class OfficeDaoImpl implements OfficeDao {
     private final EntityManager em;
 
     @Autowired
-    public OfficeDaoImpl(EntityManager em){this.em =em;}
+    public OfficeDaoImpl(EntityManager em){
+        this.em =em;
+    }
 
     @Override
     public Set<Office> getListOfOffices(Long orgId) {
@@ -22,5 +24,13 @@ public class OfficeDaoImpl implements OfficeDao {
         return offices;
     }
 
+    @Override
+    public void save(Office office) {
+        em.persist(office);
+    }
 
+    @Override
+    public Office getOffice(Long id) {
+        return em.find(Office.class, id);
+    }
 }

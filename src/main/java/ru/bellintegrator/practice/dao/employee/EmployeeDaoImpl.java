@@ -11,13 +11,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private final EntityManager em;
 
     @Autowired
-
     public EmployeeDaoImpl(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public Employee getById(Long emplId) {
-        return em.find(Employee.class, emplId);
+    public Employee getById(Long id) {
+        return em.find(Employee.class, id);
     }
 }

@@ -7,6 +7,6 @@ public interface EmployeeService {
      *
      */
 
-    EmplView getEmpl(Long id);
+    EmplView getEmployee(Long id);
 
 }

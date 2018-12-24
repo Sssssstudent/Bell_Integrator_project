@@ -148,12 +148,12 @@ public class EmplView {
         this.citizenshipCode = citizenshipCode;
     }
 
-    public Boolean getIdentefied() {
+    public Boolean getIsIdentefied() {
         return isIdentefied;
     }
 
-    public void setIdentefied(Boolean identefied) {
-        isIdentefied = identefied;
+    public void setIsIdentefied(Boolean identefied) {
+        this.isIdentefied = identefied;
     }
 
     @Override

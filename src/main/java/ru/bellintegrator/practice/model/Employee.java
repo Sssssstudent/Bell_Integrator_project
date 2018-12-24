@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * работник
  */
-@Entity
+@Entity(name = "Employee")
 public class Employee {
 
     @Id
@@ -54,12 +54,6 @@ public class Employee {
     /**
      *
      */
-    @Column(name = "citizenship_id")
-    private Long citizenshipId;
-
-    /**
-     *
-     */
     @Column(name = "is_identified")
     private Boolean isIdentified;
 
@@ -73,8 +67,12 @@ public class Employee {
     @JoinColumn(name = "citizenship_id")
     private Country country;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "empl_id")
+    @OneToOne(
+            mappedBy = "employee",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            optional = false
+    )
     private DocEmployee docEmployee;
 
     /**
@@ -91,7 +89,6 @@ public class Employee {
         this.lastName = lastName;
         this.position = position;
         this.phone = phone;
-        this.citizenshipId = citizenshipId;
         this.isIdentified = isIdentified;
     }
 
@@ -156,13 +153,6 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Long getCitizenshipId() {
-        return citizenshipId;
-    }
-
-    public void setCitizenshipId(Long citizenshipId) {
-        this.citizenshipId = citizenshipId;
-    }
 
     public Boolean getIdentified() {
         return isIdentified;
@@ -197,11 +187,11 @@ public class Employee {
         this.country = country;
     }
 
-    public DocEmployee getDocType() {
+    public DocEmployee getDocEmployee() {
         return docEmployee;
     }
 
-    public void setDocType(DocEmployee docEmployee) {
+    public void setDocEmployee(DocEmployee docEmployee) {
         this.docEmployee = docEmployee;
     }
 }

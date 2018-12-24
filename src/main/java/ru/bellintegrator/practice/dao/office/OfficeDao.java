@@ -17,7 +17,7 @@ public interface OfficeDao {
      * @param id
      * @return
      */
-//    Office getOffice(Long id);
+     Office getOffice(Long id);
 
     /**
      * обновить данные офиса
@@ -30,5 +30,5 @@ public interface OfficeDao {
      * сохранить новый офис
      * @param office
      */
-//    void save(Office office);
+     void save(Office office);
 }

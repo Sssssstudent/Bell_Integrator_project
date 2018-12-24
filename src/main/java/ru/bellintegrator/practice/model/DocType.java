@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.model;
 
 import javax.persistence.*;
 
+@Entity
 public class DocType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

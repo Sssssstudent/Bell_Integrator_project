@@ -20,7 +20,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     public Organization getById(Long id){ return em.find(Organization.class, id);}
 
     /**
-     * Используем criteria api для проверки корректности запросов во время компиляции
+     * Используем criteria api для проверки корректности запросов во время компиляции, и вроде можно использовать в качестве фильтра
      * @param name
      * @return
      */

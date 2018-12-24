@@ -29,7 +29,12 @@ public class OfficeController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
     @PostMapping("/save")
-    public ResponseView addOffice(@RequestBody OfficeView office){
-        return officeService.add(office);
+    public ResponseView addOffice(@RequestBody OfficeView officeView){
+        return officeService.add(officeView);
+    }
+
+    @GetMapping("/{id}")
+    public OfficeView getOffice(@PathVariable("id") Long id){
+        return officeService.getOffice(id);
     }
 }

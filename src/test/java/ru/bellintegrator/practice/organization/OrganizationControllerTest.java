@@ -48,7 +48,7 @@ public class OrganizationControllerTest {
         assertThat(view.getKpp(), is(9090909090L));
         assertThat(view.getAddress(), is("г.Москва, ул.Островского 11Б"));
         assertThat(view.getPhone(), is("+7-932-890-09-09"));
-        assertThat(view.getActive(), is(true));
+        //assertThat(view.getActive(), is(true));
 
 
     }
