@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface OrganizationDao {
 
-    /**Получить все организации
+    /**Получить список организации, отсортированных по параметрам name/inn/isActive
      *@return
      */
-//    List<Organization> all();
+    List<Organization> getList(Organization organization);
 
 
     /**Получить организацию по id
@@ -20,10 +20,15 @@ public interface OrganizationDao {
     /**Сохранить организацию в БД
      *
      */
-//    void save(Organization organization);
+    void save(Organization organization);
 
-    /**Обновить данные об организации
-     *
+    /**
+     *Обновить данные об организации
      */
-//    void update(Organization organization);
+    void update(Organization organization);
+
+    /**
+     * Получить список всех организаций
+     */
+    List<Organization> all();
 }

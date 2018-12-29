@@ -49,7 +49,7 @@ public class EmployeeControllerTest {
         assertThat(view.getDocNumber(), is(1111111111L));
         assertThat(view.getDocDate(), is("1994-09-01"));
         assertThat(view.getCitizenshipCode(), is(61L));
-        assertThat(view.getIsIdentefied(), is(true));
+        assertThat(view.getIsIdentified(), is(true));
 
     }
 }

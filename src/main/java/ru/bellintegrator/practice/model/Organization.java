@@ -2,6 +2,8 @@ package ru.bellintegrator.practice.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Organization")
@@ -58,53 +60,23 @@ public class Organization {
      */
     @Column( name =  "is_active" )
     private Boolean isActive;
-
+/*
+    @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Office> offices;
+*/
     /**
-     *список офисов,принадлежащих данной организации
-     */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "org_id")
-    public Set<Office> offices;
-
-
-    /**
-     *конструкторы
+     *конструктор
      */
     public Organization(){
 
     }
-/*
-    public Organization(String name, String fullName, Long inn, Long kpp,
-                        String address, String phone, Boolean isActive){
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
-
-    public Organization(Long id, String name, String fullName,
-                        Long inn, Long kpp, String address, String phone,
-                        Boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }*/
-
 
     /**
      *геттеры и сеттеры
      */
-    public Set<Office> getOffices(){
+ /*   public List<Office> getOffices(){
         if (offices == null) {
-            offices = new HashSet<>();
+            offices = new LinkedList<>();
         }
         return offices;
     }
@@ -115,17 +87,19 @@ public class Organization {
 
     public void removeOffice(Office office){
         getOffices().remove(office);
-    }
+    }*/
 
     public Long getId(){return id;}
+
+    public void setId(Long id){this.id = id; }
 
     public String getName(){return name;}
 
     public void setName(String name){this.name = name;}
 
-    public String getFullname(){return fullName;}
+    public String getFullName(){return fullName;}
 
-    public void setFullname(String fullName){this.fullName = fullName;}
+    public void setFullName(String fullName){this.fullName = fullName;}
 
     public Long getInn(){return inn;}
 

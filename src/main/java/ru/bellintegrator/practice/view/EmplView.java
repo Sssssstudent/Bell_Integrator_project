@@ -1,27 +1,12 @@
 package ru.bellintegrator.practice.view;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmplView {
-    public EmplView(){}
-
-    public EmplView(Long id, String firstName, String secondName, String lastName, String position, String phone,
-                    Long docCode, String docName, Long docNumber, String docDate, Long citizenshipCode, Boolean isIdentefied ){
-        this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.position = position;
-        this.phone = phone;
-        this.docCode = docCode;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
-        this.citizenshipCode = citizenshipCode;
-        this.isIdentefied =isIdentefied;
-    }
 
     public Long id;
 
@@ -55,10 +40,16 @@ public class EmplView {
     public String docDate;
 
     @NotEmpty
+    public String citizenshipName;
+
+    @NotEmpty
     public Long citizenshipCode;
 
     @NotNull
-    public Boolean isIdentefied;
+    public Boolean isIdentified;
+
+    public EmplView(){}
+
 
     public Long getId() {
         return id;
@@ -148,17 +139,26 @@ public class EmplView {
         this.citizenshipCode = citizenshipCode;
     }
 
-    public Boolean getIsIdentefied() {
-        return isIdentefied;
+    public String getCitizenshipName() {
+        return citizenshipName;
     }
 
-    public void setIsIdentefied(Boolean identefied) {
-        this.isIdentefied = identefied;
+    public void setCitizenshipName(String citizenshipName) {
+        this.citizenshipName = citizenshipName;
+    }
+
+    public Boolean getIsIdentified() {
+        return isIdentified;
+    }
+
+    public void setIsIdentified(Boolean identefied) {
+        this.isIdentified = identefied;
     }
 
     @Override
-    public String toString(){return " id:"+id+", firstName:"+firstName+", secondName:"+secondName+", lastName:"+lastName+", position:"+position+", phone:"+phone+", docCode:"+docCode+
-                                        ", docName:"+docName+", docNumber:"+docNumber+", docDate:"+docDate+", citizenshipCode:"+citizenshipCode+", isIdentefied:"+isIdentefied+"}";}
+    public String toString(){return " id:"+id+", firstName:"+firstName+", secondName:"+secondName+", lastName:"+lastName+
+            ", position:"+position+", phone:"+phone+", docCode:"+docCode+ ", docName:"+docName+", docNumber:"+docNumber+
+            ", docDate:"+docDate+ ", citizenshipName" + citizenshipName + ", citizenshipCode:"+citizenshipCode+", isIdentefied:"+isIdentified+"}";}
 
 
 }

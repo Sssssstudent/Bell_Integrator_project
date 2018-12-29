@@ -7,7 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.model.mapper.MapperFacade;
+import ru.bellintegrator.practice.model.response.Response;
 import ru.bellintegrator.practice.view.OrgView;
+
+import java.util.List;
 
 
 @Service
@@ -27,31 +30,33 @@ public class OrganizationServiceImpl implements OrganizationService {
         return mapperFacade.map( organization, OrgView.class);
     }
 
-
-
-
-
-
-
-
-
-
-
-    /*
+    @Override
+    @Transactional
+    public Response save(OrgView orgView) {
+        Organization org = mapperFacade.map(orgView, Organization.class);
+        dao.save(org);
+        return new Response().setSucceess(true);
+    }
 
     @Override
     @Transactional
-    public OrgView getOrg(Long id){
-        OrgView view = new OrgView();
-        view.setId(id);
-        view.setName("ЛондонПариж");
-        view.setFullName("ЛондонПариж");
-        view.setInn(1212313131L);
-        view.setKpp(9090909090L);
-        view.setAddress("г.Москва, ул.Островского 11Б");
-        view.setPhone("+7-932-890-09-09");
-        view.setActive(true);
-        return view;
+    public Response update(OrgView orgView) {
+        Organization org = mapperFacade.map(orgView, Organization.class);
+        dao.update(org);
+        return new Response().setSucceess(true);
     }
-*/
+
+    @Override
+    @Transactional
+    public List<OrgView> getList(OrgView orgView) {
+        Organization org = mapperFacade.map(orgView, Organization.class);
+        List<Organization> list = dao.getList(org);
+        return mapperFacade.mapAsList(list, OrgView.class);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrgView> all() {
+        return mapperFacade.mapAsList(dao.all(), OrgView.class);
+    }
 }

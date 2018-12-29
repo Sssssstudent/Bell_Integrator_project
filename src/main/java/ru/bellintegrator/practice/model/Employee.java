@@ -42,7 +42,7 @@ public class Employee {
     /**
      *должность
      */
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String position;
 
     /**
@@ -60,20 +60,22 @@ public class Employee {
     /**
      *список офисов работника
      */
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees",fetch = FetchType.EAGER)
     private Set<Office> offices;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
     private Country country;
 
+    /**
+     * документ, принадлежащий работнику
+     */
     @OneToOne(
             mappedBy = "employee",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            optional = false
+            cascade = CascadeType.ALL
     )
     private DocEmployee docEmployee;
+
 
     /**
      *конструкторы
@@ -82,28 +84,41 @@ public class Employee {
 
     }
 
-    public Employee(String firstName, String secondName, String lastName, String position,
-                    String phone, Long citizenshipId, Boolean isIdentified) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.position = position;
-        this.phone = phone;
-        this.isIdentified = isIdentified;
-    }
-
-    public Employee(String firstName, String position) {
-        this.firstName = firstName;
-        this.position = position;
-        this.isIdentified = true;
-    }
-
     /**
      *геттеры и сеттеры
      */
+
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id){this.id = id;}
+
+    public String getCitizenshipName() {
+        return country.getName();
+    }
+
+    public void setCitizenshipName(String citizenshipName) {country.setName(citizenshipName);}
+
+    public String getCitizenshipCode(){return country.getCode();}
+
+    public void setCitizenshipCode(String citizenshipCode){country.setCode(citizenshipCode);}
+
+    public String getDocName(){return docEmployee.getDocType().getName();}
+
+    public void setDocName(String name){docEmployee.getDocType().setName(name);}
+
+    public String getDocCode(){return docEmployee.getDocType().getCode();}
+
+    public void setDocCode(String code){docEmployee.getDocType().setCode(code);}
+
+    public Long getDocNumber(){return docEmployee.getDocNumber();}
+
+    public void setDocNumber(Long number){docEmployee.setDocNumber(number);}
+
+    public String getDocDate(){return docEmployee.getDocDate();}
+
+    public void setDocDate(String date){docEmployee.setDocDate(date);}
 
     public Integer getVersion() {
         return version;
@@ -154,11 +169,11 @@ public class Employee {
     }
 
 
-    public Boolean getIdentified() {
+    public Boolean getIsIdentified() {
         return isIdentified;
     }
 
-    public void setIdentified(Boolean identified) {
+    public void setIsIdentified(Boolean identified) {
         isIdentified = identified;
     }
 

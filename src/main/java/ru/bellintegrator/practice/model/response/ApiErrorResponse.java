@@ -1,8 +1,8 @@
-package ru.bellintegrator.practice.controller;
+package ru.bellintegrator.practice.model.response;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class ApiErrorResponse {
+public class ApiErrorResponse{
 
     private int status;
     private String message;
@@ -12,9 +12,18 @@ public class ApiErrorResponse {
         this.message = message;
     }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public int getStatus() {
         return status;
     }
+
 
     public String getMessage() {
         return message;

@@ -2,41 +2,44 @@ package ru.bellintegrator.practice.view;
 
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
-/*
-@Getter
-@Setter
-*/
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrgView {
 
+    //@NotNull
     public Long id;
 
     @Size(max = 50)
-    @NotEmpty
+    @NotNull
     private String name;
 
     @Size(max = 50)
-    @NotEmpty
+    //@NotNull
     private String fullName;
 
-    @NotNull
+    //@NotNull
     private Long inn;
 
-    @NotNull
+    //@NotNull
     private Long kpp;
 
     @Size(max = 50)
-    @NotNull
+    //@NotNull
     private String address;
 
     @Size(max = 50)
     private String phone;
+
+    private Boolean isActive;
 
     public OrgView(){}
 
@@ -51,8 +54,6 @@ public class OrgView {
         isActive = true;
     }
 
-
-   private Boolean isActive;
 
     public Long getId() {
         return id;

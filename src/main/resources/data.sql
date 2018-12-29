@@ -5,8 +5,11 @@ INSERT INTO Country (id, name, code, version) VALUES (1, 'Российская �
 INSERT INTO Country (id, name, code, version) VALUES (2, 'Греция', '520', 0);
 INSERT INTO Organization (id, name, full_name, inn, kpp, address, phone, is_active, version) VALUES (1, 'Газпром', 'ООО ГазПромВладивосток', 11112222, 22221111, 'ул.Циолковского, д.21', '8-921-333-21-13', true, 0 );
 INSERT INTO Organization (id, name, full_name, inn, kpp, address, phone, is_active, version) VALUES (2, 'Apple', 'ООО Apple Inc', 33334444, 44443333, 'ул.Красного знамени, д.17', '8-978-454-01-01', true, 0 );
+INSERT INTO Organization (id, name, full_name, inn, kpp, address, phone, is_active, version) VALUES (3, 'Apple', 'ООО Apple Inc', 33334444, 44443333, 'ул.Красного знамени, д.17', '8-978-454-01-01', false, 0 );
+INSERT INTO Organization (id, name, full_name, inn, kpp, address, phone, is_active, version) VALUES (4, 'Apple', 'ООО Apple Inc', 11112222, 44443333, 'ул.Красного знамени, д.17', '8-978-454-01-01', false, 0 );
+INSERT INTO Organization (id, name, full_name, inn, kpp, address, phone, is_active, version) VALUES (5, 'Apple', 'ООО Apple Inc', 55556666, 44443333, 'ул.Красного знамени, д.17', '8-978-454-01-01', false, 0 );
 
-INSERT INTO Office (id, org_id, name, address, phone, is_active, version) VALUES (1, 1, 'Main office Gazprom', 'ул.Ленина, д.6', '8-925-906-32-12', true, 0 );
+  INSERT INTO Office (id, org_id, name, address, phone, is_active, version) VALUES (1, 1, 'Main office Gazprom', 'ул.Ленина, д.6', '8-925-906-32-12', true, 0 );
 INSERT INTO Office (id, org_id, name, address, phone, is_active, version) VALUES (2, 2, 'Main office Apple', 'ул.Гагарина, д.54', '8-923-730-40-91', true, 0 );
 
 INSERT INTO Employee (id, first_name, second_name, last_name, position, phone, citizenship_id, is_identified, version) VALUES (1, 'Коля', 'Сахаров', 'Кириллович', 'HR', '8-907-234-90-87', 1, true, 0 );

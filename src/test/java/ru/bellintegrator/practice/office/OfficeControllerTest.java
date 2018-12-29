@@ -9,7 +9,7 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import ru.bellintegrator.practice.view.OfficeView;
-import ru.bellintegrator.practice.view.ResponseView;
+import ru.bellintegrator.practice.model.response.Response;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,12 +34,12 @@ public class OfficeControllerTest {
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        OfficeView sampleOffice = new OfficeView(1L, "kok", "KOKKOK", "9090909", true);
+        OfficeView sampleOffice = new OfficeView(1L, 1L, "kok", "KOKKOK", "9090909", true);
 
         HttpEntity<OfficeView> entity = new HttpEntity<>(sampleOffice, headers);
-        ResponseEntity<ResponseView> result = restTemplate.exchange(uri, HttpMethod.POST, entity, ResponseView.class);
+        ResponseEntity<Response> result = restTemplate.exchange(uri, HttpMethod.POST, entity, Response.class);
 
-        ResponseView view = result.getBody();
+        Response view = result.getBody();
 
         Assert.assertEquals(200, result.getStatusCodeValue());
         assertThat(view.getSucceess(), is(true));

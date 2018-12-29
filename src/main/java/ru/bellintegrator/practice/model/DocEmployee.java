@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Doc_employee")
 public class DocEmployee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

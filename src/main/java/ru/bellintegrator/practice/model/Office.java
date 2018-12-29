@@ -42,15 +42,13 @@ public class Office {
     /**
      * Действительность
      */
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private Boolean isActive;
+/*
 
-    /**
-     * id организации этого офиса
-     */
     @Column(name = "org_id", nullable = false)
     private Long orgId;
-
+*/
     /**
      *список работников в офисе
      */
@@ -68,35 +66,25 @@ public class Office {
     private Set<Employee> employees;
 
     /**
+     * организация, которой принадлежит офис
+     */
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "org_id")
+    private Organization organization;
+
+    /**
      *конструкторы
      */
     public Office() {
 
     }
 
-    public Office(String name, String address,
-                  String phone, Boolean isActive, Long orgId) {
-        this.orgId = orgId;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
-
-    public Office(Long id, String name, String address,
-                  String phone, Boolean isActive, Long orgId) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-        this.orgId = orgId;
-    }
-
     /**
      *геттеры и сеттеры
      */
     public Long getId() { return id; }
+
+    public void setId(Long id){this.id = id;}
 
     public String getName() {
         return name;
@@ -131,11 +119,11 @@ public class Office {
     }
 
     public Long getOrgId() {
-        return orgId;
+        return organization.getId();
     }
 
     public void setOrgId(Long orgId) {
-        this.orgId = orgId;
+        organization.setId(orgId);
     }
 
     public Set<Employee> getEmployees(){
@@ -155,23 +143,11 @@ public class Office {
         employee.getOffices().remove(this);
     }
 
+    public Organization getOrganization() {
+        return organization;
+    }
 
-
-
-
-    /**
-     * разкоммитеть, если нужна двунаправленная связь
-     * @return
-     */
-/*
-    @ManyToOne(fetch = FetchType.LAZY, mappedBy="offices")
-    private Organization organization;
-
-    public Organization getOrganization(){return organization;}
-
-    public void setOrganization(){this.organization = organization;}
-    */
-
-
-
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
 }

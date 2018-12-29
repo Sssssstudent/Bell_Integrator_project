@@ -2,15 +2,16 @@ package ru.bellintegrator.practice.dao.office;
 
 import ru.bellintegrator.practice.model.Office;
 
+import java.util.List;
 import java.util.Set;
 
 public interface OfficeDao {
     /**
      * получить список офисов,принадлежищих к организации, по ее id
-     * @param orgId
+     * @param office
      * @return
      */
-    Set<Office> getListOfOffices(Long orgId);
+     List<Office> list(Office office);
 
     /**
      * получить офис по его id
@@ -23,7 +24,7 @@ public interface OfficeDao {
      * обновить данные офиса
      * @param office
      */
-//    void update(Office office);
+     void update(Office office);
 
 
     /**
@@ -31,4 +32,9 @@ public interface OfficeDao {
      * @param office
      */
      void save(Office office);
+
+    /**
+     * получить список всех офисов
+     */
+    List<Office> all();
 }

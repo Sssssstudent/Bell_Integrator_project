@@ -1,20 +1,16 @@
-package ru.bellintegrator.practice.controller;
+package ru.bellintegrator.practice.controller.restControllerAdvice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import ru.bellintegrator.practice.model.response.ApiErrorResponse;
 
 import javax.validation.ConstraintViolationException;
-import java.util.logging.Logger;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
-
-    //private static final Logger LOG = Logger.getLogger(ControllerExceptionHandler.class);
-
-
 
     @ExceptionHandler(value = { ConstraintViolationException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)

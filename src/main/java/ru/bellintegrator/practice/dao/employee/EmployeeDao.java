@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.dao.employee;
 
 import ru.bellintegrator.practice.model.Employee;
 
+import java.util.List;
 import java.util.Set;
 
 public interface EmployeeDao {
@@ -10,7 +11,7 @@ public interface EmployeeDao {
      * список работников(проверить Тз)
      * @return
      */
-//    Set<Employee> getListOfEmployee();
+     List<Employee> list(Employee employee);
 
     /**
      * найти сотрудника по id
@@ -23,11 +24,16 @@ public interface EmployeeDao {
      * обновить данные сотрудника
      * @param employee
      */
-//    void update(Employee employee);
+     void update(Employee employee);
 
     /**
      * добавить сотрудника
      * @param employee
      */
-//    void save(Employee employee);
+    void save(Employee employee);
+
+    /**
+     * получить список всех сотрудников
+     */
+    List<Employee> all();
 }
