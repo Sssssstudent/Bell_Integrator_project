@@ -48,6 +48,8 @@ public class EmplView {
     @NotNull
     public Boolean isIdentified;
 
+    public Long officeId;
+
     public EmplView(){}
 
 
@@ -151,8 +153,16 @@ public class EmplView {
         return isIdentified;
     }
 
-    public void setIsIdentified(Boolean identefied) {
-        this.isIdentified = identefied;
+    public void setIsIdentified(Boolean identified) {
+        this.isIdentified = identified;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
     }
 
     @Override

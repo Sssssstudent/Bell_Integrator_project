@@ -11,4 +11,9 @@ public interface DocTypeDao {
      * @return
      */
     List<DocType> all();
+
+    /**
+     * получить тип документа по code
+     */
+    DocType getByCode(String code);
 }

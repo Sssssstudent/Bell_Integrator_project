@@ -63,7 +63,7 @@ public class Employee {
     @ManyToMany(mappedBy = "employees",fetch = FetchType.EAGER)
     private Set<Office> offices;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "citizenship_id")
     private Country country;
 

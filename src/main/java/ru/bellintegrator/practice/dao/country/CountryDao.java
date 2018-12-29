@@ -10,4 +10,9 @@ public interface CountryDao {
      * @return
      */
     List<Country> all();
+
+    /**
+     * получить страну по code
+     */
+    Country getByCode(String code);
 }

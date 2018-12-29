@@ -1,5 +1,22 @@
+CREATE TABLE IF NOT EXISTS Doc_type (
+     id        BIGINT        NOT NULL PRIMARY KEY AUTO_INCREMENT,
+     type      VARCHAR(50)   NOT NULL COMMENT 'Тип документа',
+     code      VARCHAR(2)    NOT NULL COMMENT 'Код документа',
+     version   INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
+);
+COMMENT ON TABLE Doc_type IS 'Таблица типов документов';
+
+CREATE TABLE IF NOT EXISTS Country (
+    id        INTEGER       NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+    name      VARCHAR(50)   NOT NULL COMMENT 'Название страны',
+    code      VARCHAR(50)   NOT NULL COMMENT 'Код страны',
+    version   INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
+);
+COMMENT ON TABLE Country IS 'Таблица стран';
+
+
 CREATE TABLE IF NOT EXISTS Organization (
-    id          BIGINT        PRIMARY KEY AUTO_INCREMENT ,
+    id          BIGINT        NOT NULL PRIMARY KEY AUTO_INCREMENT ,
     name        VARCHAR(50)            NOT NULL COMMENT 'Имя организации',
     full_name    VARCHAR(50)     NOT NULL  COMMENT 'Полное имя организации' ,
     inn         BIGINT                                NOT NULL   ,
@@ -13,8 +30,8 @@ CREATE TABLE IF NOT EXISTS Organization (
 COMMENT ON TABLE Organization IS 'Таблица организаций';
 
 CREATE TABLE IF NOT EXISTS Office (
-    id        BIGINT              PRIMARY KEY AUTO_INCREMENT ,
-    org_id    BIGINT       NOT NULL COMMENT 'Идентификатор связанный с идентификатором (id) в таблице организаций',
+    id        BIGINT       NOT NULL       PRIMARY KEY AUTO_INCREMENT ,
+    org_id    BIGINT        COMMENT 'Идентификатор связанный с идентификатором (id) в таблице организаций',
     name      VARCHAR(50)                  NOT NULL   COMMENT 'Название офиса' ,
     address   VARCHAR(50)                      NOT NULL COMMENT 'Адрес офиса',
     phone     VARCHAR(50)         COMMENT 'Телефонный номер офиса',
@@ -25,16 +42,8 @@ CREATE TABLE IF NOT EXISTS Office (
 );
 COMMENT ON TABLE Office IS 'Таблица офисов';
 
-CREATE TABLE IF NOT EXISTS Country (
-    id        INTEGER       PRIMARY KEY AUTO_INCREMENT ,
-    name      VARCHAR(50)   NOT NULL COMMENT 'Название страны',
-    code      VARCHAR(50)   NOT NULL COMMENT 'Код страны',
-    version   INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
-);
-COMMENT ON TABLE Country IS 'Таблица стран';
-
 CREATE TABLE IF NOT EXISTS Employee (
-    id              BIGINT                                  PRIMARY KEY AUTO_INCREMENT ,
+    id              BIGINT                           NOT NULL       PRIMARY KEY AUTO_INCREMENT ,
     first_name      VARCHAR(50)                                     NOT NULL COMMENT 'Имя пользователя',
     second_name     VARCHAR(50) COMMENT 'Фамилия пользователя',
     last_name       VARCHAR(50) COMMENT 'Второе имя/Отчество пользователя',
@@ -57,21 +66,14 @@ CREATE TABLE IF NOT EXISTS Office_Employee (
     FOREIGN KEY (employee_id) REFERENCES Employee(id)
 );
 
-CREATE TABLE IF NOT EXISTS Doc_type (
-    id        BIGINT        PRIMARY KEY AUTO_INCREMENT,
-    type      VARCHAR(50)   NOT NULL COMMENT 'Тип документа',
-    code      VARCHAR(2)    NOT NULL COMMENT 'Код документа',
-    version   INTEGER       NOT NULL COMMENT 'Служебное поле Hibernate'
-);
-COMMENT ON TABLE Doc_type IS 'Таблица типов документов';
 
 CREATE TABLE IF NOT EXISTS Doc_employee (
-    id          BIGINT                                  PRIMARY KEY AUTO_INCREMENT ,
-    emp_id     BIGINT                              NOT NULL COMMENT 'Связь документа с работником',
+    id          BIGINT                         NOT NULL         PRIMARY KEY AUTO_INCREMENT ,
+    emp_id     BIGINT                               COMMENT 'Связь документа с работником',
     FOREIGN KEY (emp_id)   REFERENCES Employee(id),
-    doc_number  BIGINT                                 NOT NULL  COMMENT 'Номер документа работника',
-    doc_date    VARCHAR(50)                            NOT NULL  COMMENT 'Дата выдачи документа работника',
-    type_id     BIGINT     NOT NULL COMMENT 'Идентификатор, связывающий документ с типом документа',
+    doc_number  BIGINT                                   COMMENT 'Номер документа работника',
+    doc_date    VARCHAR(50)                              COMMENT 'Дата выдачи документа работника',
+    type_id     BIGINT      COMMENT 'Идентификатор, связывающий документ с типом документа',
     FOREIGN KEY (type_id) REFERENCES Doc_type(id),
     version     INTEGER    NOT NULL COMMENT 'Служебное поле Hibernate'
 );
