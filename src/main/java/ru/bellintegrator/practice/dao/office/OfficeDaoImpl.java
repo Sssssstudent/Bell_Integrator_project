@@ -11,10 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class OfficeDaoImpl implements OfficeDao {
@@ -26,23 +23,23 @@ public class OfficeDaoImpl implements OfficeDao {
     }
 
     @Override
-    public List<Office> list(Office office) {
+    public List<Office> list(Map<String,Object> filter) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Office> criteriaQuery = builder.createQuery(Office.class);
         Root<Office> rootOffice = criteriaQuery.from(Office.class);
         List<Predicate> predicates = new LinkedList<>();
 
-        if(Objects.nonNull(office.getOrganization().getId())){
-            predicates.add(builder.equal(rootOffice.get("organization").get("id"),office.getId()));
+        if(Objects.nonNull(filter.get("orgId"))){
+            predicates.add(builder.equal(rootOffice.get("organization").get("id"),filter.get("orgId")));
         }
-        if(Objects.nonNull(office.getName())){
-            predicates.add(builder.equal(rootOffice.get("name"),office.getName()));
+        if(Objects.nonNull(filter.get("name"))){
+            predicates.add(builder.equal(rootOffice.get("name"),filter.get("name")));
         }
-        if(Objects.nonNull(office.getPhone())){
-            predicates.add(builder.equal(rootOffice.get("phone"),office.getPhone()));
+        if(Objects.nonNull(filter.get("phone"))){
+            predicates.add(builder.equal(rootOffice.get("phone"),filter.get("phone")));
         }
-        if(Objects.nonNull(office.getIsActive())){
-            predicates.add(builder.equal(rootOffice.get("isActive"),office.getIsActive()));
+        if(Objects.nonNull(filter.get("isActive"))){
+            predicates.add(builder.equal(rootOffice.get("isActive"),filter.get("isActive")));
         }
         criteriaQuery.where(builder.and(predicates.toArray(new Predicate[]{})));
         TypedQuery<Office> list = em.createQuery(criteriaQuery);

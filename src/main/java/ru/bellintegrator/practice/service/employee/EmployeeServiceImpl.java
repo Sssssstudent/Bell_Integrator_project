@@ -48,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public Response save(EmplView emplView) {
+
         Employee employee = mapperFacade.map(emplView, Employee.class);
         dao.save(employee);
         return new Response().setSucceess(true);
